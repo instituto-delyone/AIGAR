@@ -1,0 +1,16 @@
+id: MC-SIMPLIFICACAO-20250828-122642
+data: '2025-08-28 12:26:42'
+escopo: ESTRATEGIA_GLOBAL
+decisao: Reduzir camadas simbólicas de criptografia e adiar criptografia avançada
+  para acelerar execução e comunicação.
+motivacao:
+- Evitar bloqueios por complexidade desnecessária neste estágio.
+- 'Foco em segurança suficiente: PIN, .env, checksums, backups no pendrive.'
+politica_de_seguranca_minima:
+  pin_ui: true
+  env_segredos: true
+  checksums_sha256: true
+  backup_pendrive: true
+  allowlist_fetch: true
+observacoes: Criptografia avançada pode ser reintroduzida após estabilizar UI + adapters
+  + Jarvis/Karma.
