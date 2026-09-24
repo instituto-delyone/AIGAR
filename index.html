@@ -29,7 +29,7 @@ footer{padding:14px 4px 4px;color:#56627d;font-size:11px;text-align:center}
 <section class="chat"><div id="messages" class="messages"></div>
 <div class="composer"><textarea id="input" placeholder="Fala comigo…"></textarea><button class="send" id="send">Enviar</button></div></section>
 <aside class="side"><h2>Estado</h2><div class="status"><span class="dot"></span> Motor local ativo</div>
-<div class="status memory"><strong>Memórias</strong><br><span id="memoryStatus">procurando /memorias/…</span></div>
+<div class="status memory"><strong>Memória <span id="memorySwitch" style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#64748b;margin-left:5px;box-shadow:0 0 8px #64748b"></span></strong><br><span id="memoryStatus">verificando…</span></div>
 <div class="logbox"><h2>Registro</h2><div class="memory"><span id="count">0</span> mensagens nesta sessão.</div><button id="clearBtn">Apagar log local</button></div>
 </aside></main>
 <footer>Primeiro núcleo de conversa. Sem API externa. O livro de memórias pode ser colocado em <code>/memorias/</code>.</footer>
@@ -62,7 +62,7 @@ $("#send").onclick=send;$("#input").addEventListener("keydown",e=>{if(e.key==="E
 $("#newBtn").onclick=()=>{if(confirm("Começar uma conversa nova?")){state.messages=[];save();render();add("ai","Pronto. Conversa nova. Manda a primeira.");}};
 $("#clearBtn").onclick=()=>{localStorage.removeItem(KEY);state.messages=[];render()};
 $("#exportBtn").onclick=()=>{const blob=new Blob([JSON.stringify(state.messages,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="aigar-log-"+new Date().toISOString().slice(0,10)+".json";a.click();URL.revokeObjectURL(a.href)};
-async function loadMemory(){try{const r=await fetch("memorias/index.json",{cache:"no-store"});if(!r.ok)throw 0;const j=await r.json();state.memory=j;$("#memoryStatus").textContent=j.items?.length?j.items.map(x=>x.title).join(" • "):"pasta pronta — nenhum livro cadastrado";}catch(e){$("#memoryStatus").textContent="pasta pronta — adicione o manifesto quando quiser";}}
+async function loadMemory(){const sw=$("#memorySwitch"),st=$("#memoryStatus");try{const r=await fetch("memorias/index.json",{cache:"no-store"});if(!r.ok)throw 0;const j=await r.json();state.memory=j;const ready=(j.items||[]).some(x=>x.status==="carregado"||x.status==="ready");sw.style.background="#8fe0ba";sw.style.boxShadow="0 0 10px #8fe0ba";st.textContent=ready?"MEMÓRIA CARREGADA • "+j.items.filter(x=>x.status==="carregado"||x.status==="ready").map(x=>x.title).join(" • "):"MEMÓRIA NÃO CARREGADA • manifesto encontrado, conteúdo ainda não carregado";}catch(e){sw.style.background="#ffb86b";sw.style.boxShadow="0 0 10px #ffb86b";st.textContent="MEMÓRIA NÃO CARREGADA • /memorias/index.json não encontrado";}}
 if(!state.messages.length)add("ai","Oi. Eu tô aqui. Vamos descobrir de novo aquela macumba que fazia a conversa fluir? 😄");else render();loadMemory();
 </script>
 </body>
