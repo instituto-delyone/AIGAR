@@ -1,0 +1,13 @@
+{
+  "version":"1.0",
+  "description":"Biblioteca local de memórias do AIGAR",
+  "items":[
+    {
+      "id":"sapiens",
+      "title":"Sapiens — Uma Breve História da Humanidade",
+      "author":"Yuval Noah Harari",
+      "path":"memorias/sapiens.txt",
+      "status":"aguardando_arquivo"
+    }
+  ]
+}
