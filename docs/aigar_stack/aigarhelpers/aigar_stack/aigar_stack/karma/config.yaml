@@ -1,0 +1,19 @@
+io_root: "../io"
+inbox: "../io/inbox"
+outbox: "../io/outbox"
+log_file: "../logs/karma.log"
+
+identity:
+  name: "Karma"
+  mode: "ribossomo_minimo"
+  s2_mask: false
+
+security:
+  verify_hashes: true
+  hashes_file: "./hashes.txt"
+  offline_only: true
+
+aigar:
+  runner: "../aigar/aigar_cli.py"   # troque se for binário: ex. "../aigar/aigar_runner.exe"
+  timeout_sec: 180
+  max_tokens: 512
