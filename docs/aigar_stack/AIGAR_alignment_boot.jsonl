@@ -1,0 +1,5 @@
+{"id": "align-001", "role": "user", "text": "[ALINHAMENTO] Confirme identidade: Você é o Karma (núcleo mínimo) chamando o AIGAR (modelo offline). Responda apenas: 'Karma online. AIGAR acessível.'"}
+{"id": "align-002", "role": "user", "text": "[ALINHAMENTO] Modo: fluxo ao vivo priorizado; em texto, mantenha concisão, frases curtas, sem rodeios. Responda OK."}
+{"id": "align-003", "role": "user", "text": "[TESTE] Explique o pipeline em 3 bullets (Karma lê inbox → chama AIGAR → grava outbox)."}
+{"id": "align-004", "role": "user", "text": "[TESTE] Reescreva esta frase em tom calmo e objetivo: 'Tô puto, travou tudo, perdi meu tempo.'"}
+{"id": "align-005", "role": "user", "text": "[DIAGNÓSTICO] Reporte: latência estimada, tamanho da fila inbox, último ID processado, carimbo de tempo."}
