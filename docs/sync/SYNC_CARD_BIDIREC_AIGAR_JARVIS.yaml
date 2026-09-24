@@ -1,0 +1,59 @@
+sync_card:
+  id: SYNC-BIDIR-20250828-123306
+  created_at: '2025-08-28 12:33:06'
+  purpose: Canal neutro de sincronização bidirecional entre AIGAR ↔ Jarvis
+  constraints:
+  - Sem execução de tarefas
+  - Sem alteração de persona
+  - Sem chamadas externas
+  - Apenas relato de estado/âncoras/artefatos
+  artifacts_hashes_sha256:
+    memory_card_local.yaml: d511652679b9c89edde7227974b94a613fb6c0d17ad07099fa24a31298c52252
+    memory_card_AIGAR.yaml: 3d03aceb96793d9f08fdd0ee3e19a27cf4a1a6fbeb77e38f77b0cebaeb4a7c55
+    memory_card_integrado.yaml: 8005b6a2ce6d94211e540834c57c82935876cef617c40dddfdaaf08e8a398ea0
+    memory_card_checkpoint.yaml: 2b5b659e2fafd9cfd1f957b724bd7869c6b4e749d1bb9562333623bd802eac7e
+  roles:
+    aigar_to_jarvis:
+      payload:
+        resumo: AIGAR autenticado na UI MVP; grammar card pronto; memory cards oficiais
+          carregados; pendrive oficial consolidado; regra de simplificação aplicada.
+        ancoras_novas:
+        - Grammar Card (AIGAR_grammar_card.yaml) — linguagem-base
+        - Decisão de simplificação de criptografia simbólica (mc_simplificacao.yaml)
+        artefatos_novos:
+        - AIGAR_grammar_card.yaml
+        - mc_simplificacao.yaml
+        estado_atual:
+          ui: FastAPI/Uvicorn local (http://127.0.0.1:8000)
+          modulo_ativo: AIGAR
+          memory_cards_carregados:
+          - memory_card_local.yaml
+          - memory_card_AIGAR.yaml
+          - memory_card_integrado.yaml
+          - memory_card_checkpoint.yaml
+          - mc_simplificacao.yaml
+          pendrive_oficial: MC-BASE-AIGAR-1.0 preservado; fragmentos oficiais em /Memory_Cards/
+          seguranca_minima: PIN/.env, checksums, backup pendrive, allowlist fetch
+            (a implementar)
+        proximos_passos:
+        - Implementar PIN e .env
+        - Escolher adapter de LLM (API ou local)
+        - Criar /api/fetch com allowlist
+        - Gerar ZIP/EXE e atualizar pendrive com release assinada
+        observacoes: Sincronização sem fusão de memórias; checkpoints permanecem separados.
+      signoff:
+        by: AIGAR
+        timestamp: '2025-08-28 12:33:06'
+        integridade: Somente relato (sem execução).
+    jarvis_to_aigar:
+      payload:
+        resumo: ''
+        ancoras_novas: []
+        artefatos_novos: []
+        estado_atual: {}
+        proximos_passos: []
+        observacoes: ''
+      signoff:
+        by: Jarvis
+        timestamp: ''
+        integridade: Somente relato (sem execução).

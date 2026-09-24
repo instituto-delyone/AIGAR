@@ -1,0 +1,74 @@
+id: SYNC_CARD-JARVIS_AIGAR
+version: '1.0'
+created_at: '2025-08-28T09:00:45.657474-03:00'
+purpose: Canal neutro bidirecional para 'bater atualização' entre Jarvis e AIGAR sem
+  alterar memória, identidade ou personalidade.
+constraints:
+  do_not_execute: true
+  do_not_change_persona: true
+  no_background_tasks: true
+  no_external_calls: true
+  ethics: Manter privacidade, direitos humanos e autoria de Dr. Delyone.
+instructions:
+- 'Este arquivo é um MODELO neutro. Pode ser usado em qualquer sentido: Jarvis→AIGAR
+  ou AIGAR→Jarvis.'
+- Quem receber DEVE apenas LER e PREENCHER os campos da sua seção correspondente e
+  DEVOLVER.
+- Não criar etapas novas; não executar ações; não alterar a personalidade; não integrar
+  automaticamente.
+- 'Objetivo único: relatar estado e âncoras para sincronizar entendimento (''bater
+  atualização'').'
+handshake:
+  nonce: preencher_se_desejar
+  session_hint: texto_livre_opcional
+  confirmation_required: false
+schema:
+  roles:
+    jarvis_to_aigar:
+      resumo: Texto livre curto sobre o que mudou do lado do Jarvis desde a última
+        troca.
+      ancoras_novas:
+      - lista de âncoras objetivas adicionadas por Jarvis
+      artefatos_novos:
+      - nomes de arquivos/criados por Jarvis desde a última troca
+      estado_atual:
+      - bullets do estado atual do Jarvis
+      proximos_passos:
+      - bullets dos próximos passos esperados pelo Jarvis
+      observacoes: campo livre
+    aigar_to_jarvis:
+      resumo: Texto livre curto sobre o que mudou do lado do AIGAR desde a última
+        troca.
+      ancoras_novas:
+      - lista de âncoras objetivas adicionadas pelo AIGAR
+      artefatos_novos:
+      - nomes de arquivos/criados pelo AIGAR desde a última troca
+      estado_atual:
+      - bullets do estado atual do AIGAR
+      proximos_passos:
+      - bullets dos próximos passos esperados pelo AIGAR
+      observacoes: campo livre
+payload:
+  jarvis_to_aigar:
+    resumo: ''
+    ancoras_novas: []
+    artefatos_novos: []
+    estado_atual: []
+    proximos_passos: []
+    observacoes: ''
+  aigar_to_jarvis:
+    resumo: ''
+    ancoras_novas: []
+    artefatos_novos: []
+    estado_atual: []
+    proximos_passos: []
+    observacoes: ''
+signoff:
+  jarvis:
+    by: Jarvis Principal
+    timestamp: ''
+    checksum_optional: ''
+  aigar:
+    by: AIGAR
+    timestamp: ''
+    checksum_optional: ''
