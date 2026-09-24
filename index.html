@@ -1,15 +1,69 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>AIGAR Engine</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1020">
+<title>AIGAR — Conversa Local</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Georgia,"Times New Roman",serif;background:#f8fafc;color:#0f172a}main{width:min(860px,100%);margin:auto;padding:28px 18px 56px}.top{display:flex;justify-content:space-between;margin-bottom:22px}a{color:#0f172a}.pill,.card{text-decoration:none;border:1px solid #dbe4ef;background:white;border-radius:999px;padding:10px 16px}.hero{border:1px solid #dbe4ef;border-radius:30px;background:rgba(255,255,255,.84);padding:28px;box-shadow:0 20px 60px rgba(15,23,42,.06)}h1{font-size:clamp(2.5rem,10vw,5rem);line-height:.95;margin:.2em 0}p{color:#64748b;line-height:1.55}.grid{display:grid;gap:12px;margin-top:20px}.card{display:block;border-radius:22px}.card strong{display:block;font-size:1.35rem;margin-bottom:4px}.card span{color:#64748b}
+:root{--bg:#080b14;--panel:#101626;--panel2:#151c30;--line:#26314d;--text:#edf2ff;--muted:#91a0bf;--accent:#8ea7ff;--accent2:#b58cff;--user:#1d2947;--ok:#8fe0ba}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:radial-gradient(circle at 20% 0%,#172244 0,#080b14 42%,#060811 100%);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+body{display:flex;justify-content:center}.app{width:min(1120px,100%);min-height:100vh;display:grid;grid-template-rows:auto 1fr auto;padding:18px}
+header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 6px 18px}
+.brand{display:flex;align-items:center;gap:12px}.orb{width:42px;height:42px;border-radius:50%;background:conic-gradient(from 210deg,var(--accent),var(--accent2),#62d6ff,var(--accent));box-shadow:0 0 35px #718dff55}
+h1{font-size:18px;margin:0}.sub{font-size:12px;color:var(--muted);margin-top:3px}
+.actions{display:flex;gap:8px;flex-wrap:wrap}button{border:1px solid var(--line);background:#10172a;color:var(--text);border-radius:12px;padding:9px 12px;cursor:pointer}button:hover{background:#18213a}
+.layout{display:grid;grid-template-columns:1fr 280px;gap:14px;min-height:0}.chat,.side{background:#0d1322cc;border:1px solid var(--line);border-radius:22px;box-shadow:0 20px 70px #0005;backdrop-filter:blur(14px)}
+.chat{display:grid;grid-template-rows:1fr auto;overflow:hidden}.messages{padding:24px;overflow:auto;min-height:55vh}.msg{max-width:78%;margin:0 0 15px;display:flex;flex-direction:column;gap:5px}.msg.ai{align-items:flex-start}.msg.user{margin-left:auto;align-items:flex-end}.bubble{padding:12px 15px;border-radius:18px;line-height:1.5;white-space:pre-wrap}.ai .bubble{background:var(--panel2);border:1px solid #26314d}.user .bubble{background:var(--user);border:1px solid #34466e}.meta{font-size:10px;color:#657391;padding:0 4px}
+.composer{border-top:1px solid var(--line);padding:14px;display:flex;gap:10px}.composer textarea{flex:1;resize:none;min-height:46px;max-height:140px;background:#090e1b;border:1px solid var(--line);color:var(--text);border-radius:15px;padding:12px 14px;font:inherit;outline:none}.composer textarea:focus{border-color:#526cae}.send{background:linear-gradient(135deg,#5f7dff,#9b68e8);border:0;padding:0 18px;font-weight:700}
+.side{padding:18px}.side h2{font-size:13px;text-transform:uppercase;letter-spacing:.12em;color:#aebbd7;margin:2px 0 14px}.status{padding:12px;border:1px solid var(--line);border-radius:15px;background:#0a1020;margin-bottom:12px}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 10px var(--ok);margin-right:7px}.memory{font-size:13px;color:var(--muted);line-height:1.5}.memory strong{color:var(--text)}.logbox{margin-top:18px}.logbox button{width:100%;margin-top:7px}
+footer{padding:14px 4px 4px;color:#56627d;font-size:11px;text-align:center}
+@media(max-width:760px){.layout{grid-template-columns:1fr}.side{display:none}.messages{min-height:65vh}.msg{max-width:90%}header{padding-bottom:12px}.actions button{padding:8px}}
 </style>
 </head>
-<body><main>
-<nav class="top"><a class="pill" href="/">← Início</a><a class="pill" href="/Aiger/">AIGER</a></nav>
-<section class="hero"><p>Instituto Delyone</p><h1>AIGAR Engine</h1><p>Camada técnica do runtime.</p><div class="grid"><a class="card" href="/Aiger/"><strong>Abrir AIGER</strong><span>Portal de interação.</span></a>
-<a class="card" href="/Engines/Aurora/"><strong>Aurora Engines</strong><span>Voltar.</span></a></div></section>
-</main></body></html>
+<body>
+<div class="app">
+<header><div class="brand"><div class="orb"></div><div><h1>AIGAR — Conversa Local</h1><div class="sub">motor experimental sem LLM • memória e logs no navegador</div></div></div>
+<div class="actions"><button id="newBtn">Nova conversa</button><button id="exportBtn">Exportar log</button></div></header>
+<main class="layout">
+<section class="chat"><div id="messages" class="messages"></div>
+<div class="composer"><textarea id="input" placeholder="Fala comigo…"></textarea><button class="send" id="send">Enviar</button></div></section>
+<aside class="side"><h2>Estado</h2><div class="status"><span class="dot"></span> Motor local ativo</div>
+<div class="status memory"><strong>Memórias</strong><br><span id="memoryStatus">procurando /memorias/…</span></div>
+<div class="logbox"><h2>Registro</h2><div class="memory"><span id="count">0</span> mensagens nesta sessão.</div><button id="clearBtn">Apagar log local</button></div>
+</aside></main>
+<footer>Primeiro núcleo de conversa. Sem API externa. O livro de memórias pode ser colocado em <code>/memorias/</code>.</footer>
+</div>
+<script>
+const KEY="aigar_local_chat_v1";
+const state={messages:JSON.parse(localStorage.getItem(KEY)||"[]"),memory:null};
+const $=s=>document.querySelector(s);
+function save(){localStorage.setItem(KEY,JSON.stringify(state.messages));$("#count").textContent=state.messages.length}
+function add(role,text){state.messages.push({role,text,time:new Date().toISOString()});save();render()}
+function render(){const box=$("#messages");box.innerHTML="";for(const m of state.messages){const d=document.createElement("div");d.className="msg "+(m.role==="user"?"user":"ai");d.innerHTML='<div class="bubble"></div><div class="meta">'+(m.role==="user"?"você":"AIGAR")+' • '+new Date(m.time).toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"})+"</div>";d.querySelector(".bubble").textContent=m.text;box.appendChild(d)}box.scrollTop=box.scrollHeight}
+function normalize(s){return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/\s+/g," ").trim()}
+function reply(raw){
+ const s=normalize(raw);
+ if(!s)return "Manda. Tô te ouvindo.";
+ if(/^(oi|ola|opa|e ai|ioio|bom dia|boa tarde|boa noite)\b/.test(s))return "Opa. Tô aqui. Manda o que você tá pensando.";
+ if(/\b(tudo bem|como voce ta|como vc ta)\b/.test(s))return "Tô funcionando por aqui — local, simples e sem depender de API. 😄";
+ if(/\b(quem e voce|o que voce e|quem voce e)\b/.test(s))return "Sou o núcleo de conversa local desta página. A ideia é justamente testar aquela conversa mais solta, sem transformar tudo em comando rígido.";
+ if(/\b(exame|ecg|eletro|gasometria|hemograma)\b/.test(s))return "Ah, entendi. Qual exame você quer pedir primeiro?";
+ if(/\b(para|pare|espera|calma)\b/.test(s))return "Tá. Pausando. Pode continuar quando quiser.";
+ if(/\b(obrigad|valeu|fechou|beleza|show)\b/.test(s))return "Fechou. 😄";
+ if(s.endsWith("?"))return "Entendi a pergunta. Me dá um pouco mais de contexto que eu acompanho o raciocínio com você.";
+ const last=state.messages.filter(x=>x.role==="user").slice(-2,-1)[0];
+ if(last && /\b(sim|isso|exatamente|e isso)\b/.test(s))return "Sim. Tô acompanhando. Pode continuar daí.";
+ if(/\b(nao sei|nao entendi|confuso|confusa)\b/.test(s))return "Sem problema. Vamos por partes. Me diz onde você acha que está o ponto principal.";
+ return ["Entendi. Continua.","Tá, tô acompanhando. E aí?","Certo. Me explica essa parte.","Ah, saquei. O que aconteceu depois?"][state.messages.length%4];
+}
+function send(){const el=$("#input"),v=el.value.trim();if(!v)return;add("user",v);setTimeout(()=>add("ai",reply(v)),60);el.value="";el.focus()}
+$("#send").onclick=send;$("#input").addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();send()}});
+$("#newBtn").onclick=()=>{if(confirm("Começar uma conversa nova?")){state.messages=[];save();render();add("ai","Pronto. Conversa nova. Manda a primeira.");}};
+$("#clearBtn").onclick=()=>{localStorage.removeItem(KEY);state.messages=[];render()};
+$("#exportBtn").onclick=()=>{const blob=new Blob([JSON.stringify(state.messages,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="aigar-log-"+new Date().toISOString().slice(0,10)+".json";a.click();URL.revokeObjectURL(a.href)};
+async function loadMemory(){try{const r=await fetch("memorias/index.json",{cache:"no-store"});if(!r.ok)throw 0;const j=await r.json();state.memory=j;$("#memoryStatus").textContent=j.items?.length?j.items.map(x=>x.title).join(" • "):"pasta pronta — nenhum livro cadastrado";}catch(e){$("#memoryStatus").textContent="pasta pronta — adicione o manifesto quando quiser";}}
+if(!state.messages.length)add("ai","Oi. Eu tô aqui. Vamos descobrir de novo aquela macumba que fazia a conversa fluir? 😄");else render();loadMemory();
+</script>
+</body>
+</html>
